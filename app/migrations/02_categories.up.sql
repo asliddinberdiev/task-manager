@@ -1,0 +1,7 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+CREATE TABLE IF NOT EXISTS categories (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  name VARCHAR(25) NOT NULL CHECK (CHAR_LENGTH(name) >= 3 AND CHAR_LENGTH(name) <= 25)
+);

@@ -49,7 +49,7 @@ services:
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_NAME}
-    restart: on-failure
+    restart: unless-stopped
     volumes:
       - psql:/var/lib/postgresql/data
     networks:

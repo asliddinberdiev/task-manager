@@ -8,8 +8,7 @@ DB_URL=postgres://$(DB_USER):$(DB_PASSWORD)@localhost:$(DB_PORT)/$(DB_NAME)?sslm
 
 help:
 	@echo "Makefile commands:"
-	@echo "make app-run          - Golang application run"
-	@echo "make bot-run          - Bot run"
+	@echo "make run              - Golang application and bot run"
 	@echo "make print            - Print db url"
 	@echo "make build     		   - Build the Docker image for the application"
 	@echo "make up        		   - Start all services of the application"
@@ -17,10 +16,8 @@ help:
 	@echo "make migrate-up       - Run database migrations up"
 	@echo "make migrate-down     - Run database migrations down"
 
-app-run:
+run:
 	@go run app/cmd/main.go
-
-bot-run:
 	@nodemon bot/bot.js
 
 print:
@@ -36,10 +33,10 @@ down:
 	@docker-compose down
 
 migrate-up:
-	@migrate -path migrations -database "$(DB_URL)" -verbose up
+	@migrate -path app/migrations -database "$(DB_URL)" -verbose up
 
 migrate-down:
-	@migrate -path migrations -database "$(DB_URL)" -verbose down
+	@migrate -path app/migrations -database "$(DB_URL)" -verbose down
 
 
 .PHONY: all
